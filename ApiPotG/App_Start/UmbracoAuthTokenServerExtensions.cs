@@ -12,7 +12,7 @@ namespace ApiPotG
 
     /// <summary>
     /// Extension methods to configure Umbraco for issuing and processing tokens for authentication
-    /// </summary>    
+    /// </summary>
     public static class UmbracoAuthTokenServerExtensions
     {
 
@@ -28,22 +28,22 @@ namespace ApiPotG
         /// BackOfficeAuthServerProvider could be overridden to include this functionality instead of coding the logic into the callbacks.
         /// </remarks>
         /// <example>
-        /// 
+        ///
         /// An example of using this implementation is to use the UmbracoStandardOwinSetup and execute this extension method as follows:
-        /// 
+        ///
         /// <![CDATA[
-        /// 
+        ///
         ///   public override void Configuration(IAppBuilder app)
         ///   {
         ///       //ensure the default options are configured
         ///       base.Configuration(app);
-        ///   
+        ///
         ///       //configure token auth
         ///       app.UseUmbracoBackOfficeTokenAuth();
         ///   }
-        /// 
+        ///
         /// ]]>
-        /// 
+        ///
         /// Then be sure to read the details in UmbracoStandardOwinSetup on how to configure Owin to startup using it.
         /// </example>
         public static void UseUmbracoBackOfficeTokenAuth(this IAppBuilder app, BackOfficeAuthServerProviderOptions backofficeAuthServerProviderOptions = null)
@@ -54,7 +54,7 @@ namespace ApiPotG
 #if DEBUG
                 AllowInsecureHttp = true,
 #endif
-                
+
                 TokenEndpointPath = new PathString("/umbraco/oauth/token"),
                 //set as different auth type to not interfere with anyone doing this on the front-end
                 AuthenticationType = Umbraco.Core.Constants.Security.BackOfficeTokenAuthenticationType,
@@ -64,11 +64,11 @@ namespace ApiPotG
                     OnValidateClientAuthentication = context =>
                     {
                         // Called to validate that the origin of the request is a registered "client_id", and that the correct credentials for that client are
-                        // present on the request. If the web application accepts Basic authentication credentials, 
-                        // context.TryGetBasicCredentials(out clientId, out clientSecret) may be called to acquire those values if present in the request header. If the web 
-                        // application accepts "client_id" and "client_secret" as form encoded POST parameters, 
+                        // present on the request. If the web application accepts Basic authentication credentials,
+                        // context.TryGetBasicCredentials(out clientId, out clientSecret) may be called to acquire those values if present in the request header. If the web
+                        // application accepts "client_id" and "client_secret" as form encoded POST parameters,
                         // context.TryGetFormCredentials(out clientId, out clientSecret) may be called to acquire those values if present in the request body.
-                        // If context.Validated is not called the request will not proceed further. 
+                        // If context.Validated is not called the request will not proceed further.
 
                         //** Currently we just accept everything globally
                         context.Validated();
@@ -91,7 +91,7 @@ namespace ApiPotG
                         //** Check if this client id is allowed/registered
                         // - lookup in custom table
 
-                        //** Verify that the client id and client secret match 
+                        //** Verify that the client id and client secret match
                         //if (client != null && userManager.PasswordHasher.VerifyHashedPassword(client.ClientSecretHash, clientSecret) == PasswordVerificationResult.Success)
                         //{
                         //    // Client has been verified.
