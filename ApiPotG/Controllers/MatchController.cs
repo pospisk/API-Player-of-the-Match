@@ -9,6 +9,11 @@ namespace ApiPotG.Controllers
 {
     public class MatchController : UmbracoApiController
     {
+        /// <summary>
+        /// get matches from a team id
+        /// </summary>
+        /// <param name="teamId"></param>
+        /// <returns>list of matces with ids of sponsors and opponents</returns>
         [HttpGet]
         public List<Match> GetMatches(int teamId)
         {
@@ -30,8 +35,8 @@ namespace ApiPotG.Controllers
 
                     try
                     {
-                        string id = match.Properties["matchOpponent"].Value.ToString();
-                        var uid = Udi.Parse(id);
+                        string guid = match.Properties["matchOpponent"].Value.ToString();
+                        var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
                         m.opponent = media;
                     }
@@ -42,8 +47,8 @@ namespace ApiPotG.Controllers
 
                     try
                     {
-                        string id = match.Properties["matchSponsors"].Value.ToString();
-                        var uid = Udi.Parse(id);
+                        string guid = match.Properties["matchSponsors"].Value.ToString();
+                        var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
                         m.sponsor = media;
                     }

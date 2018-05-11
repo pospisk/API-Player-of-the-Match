@@ -271,6 +271,7 @@ Umbraco.Web.Cache.UserCacheRefresher, umbraco, Version=1.0.6684.15731, Culture=n
 Umbraco.Web.Cache.UserGroupPermissionsCacheRefresher, umbraco, Version=1.0.6684.15731, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.ClubsController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.MatchController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ApiPotG.Controllers.PlayerController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.TeamController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.RestApi.Models.MediaModelMapper, Umbraco.RestApi, Version=1.0.5779.34030, Culture=neutral, PublicKeyToken=null
 Umbraco.RestApi.Models.MemberModelMapper, Umbraco.RestApi, Version=1.0.5779.34030, Culture=neutral, PublicKeyToken=null
@@ -671,6 +672,7 @@ Umbraco.Web.Editors.SectionController, umbraco, Version=1.0.6684.15731, Culture=
 Umbraco.Web.Editors.MediaController, umbraco, Version=1.0.6684.15731, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.ClubsController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.MatchController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+ApiPotG.Controllers.PlayerController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 ApiPotG.Controllers.TeamController, ApiPotG, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.ModelsBuilder.Umbraco.ModelsBuilderBackOfficeController, Umbraco.ModelsBuilder, Version=3.0.10.102, Culture=neutral, PublicKeyToken=null
 

@@ -11,7 +11,7 @@ namespace ApiPotG.Controllers
         /// Get all the decendant teams of a parrent
         /// </summary>
         /// <param name="parrentId"></param>
-        /// <returns></returns>
+        /// <returns>Teams from the defined club</returns>
         [HttpGet]
         public List<Team> GetTeams(int parrentId)
         {
