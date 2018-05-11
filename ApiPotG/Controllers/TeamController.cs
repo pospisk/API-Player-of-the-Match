@@ -25,8 +25,8 @@ namespace ApiPotG.Controllers
                 {
                     var t = new Team
                     {
-                        Id = team.Id,
-                        Name = team.Name
+                        id = team.Id,
+                        name = team.Name
 
                     };
                     res.Add(t);

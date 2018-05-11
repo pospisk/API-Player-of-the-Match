@@ -19,7 +19,7 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "b7dbdf8dd2bf2ec2")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "fde0cad16d59532d")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedContentModels
@@ -241,6 +241,15 @@ namespace Umbraco.Web.PublishedContentModels
 		{
 			get { return this.GetPropertyValue<string>("lastName"); }
 		}
+
+		///<summary>
+		/// Player Image: image of the player
+		///</summary>
+		[ImplementPropertyType("playerImage")]
+		public IPublishedContent PlayerImage
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("playerImage"); }
+		}
 	}
 
 	/// <summary>Matches</summary>
@@ -316,9 +325,9 @@ namespace Umbraco.Web.PublishedContentModels
 		/// Match Sponsors
 		///</summary>
 		[ImplementPropertyType("matchSponsors")]
-		public string MatchSponsors
+		public IEnumerable<IPublishedContent> MatchSponsors
 		{
-			get { return this.GetPropertyValue<string>("matchSponsors"); }
+			get { return this.GetPropertyValue<IEnumerable<IPublishedContent>>("matchSponsors"); }
 		}
 
 		///<summary>
@@ -328,6 +337,155 @@ namespace Umbraco.Web.PublishedContentModels
 		public DateTime MatchStart
 		{
 			get { return this.GetPropertyValue<DateTime>("matchStart"); }
+		}
+	}
+
+	/// <summary>Sponsors</summary>
+	[PublishedContentModel("sponsors")]
+	public partial class Sponsors : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "sponsors";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Sponsors(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Sponsors, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Sponsor</summary>
+	[PublishedContentModel("sponsor")]
+	public partial class Sponsor : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "sponsor";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Sponsor(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Sponsor, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// logo: logo for sponsor
+		///</summary>
+		[ImplementPropertyType("logo")]
+		public IPublishedContent Logo
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("logo"); }
+		}
+
+		///<summary>
+		/// Sponsor name: Name of the sponsor
+		///</summary>
+		[ImplementPropertyType("sponsorName")]
+		public string SponsorName
+		{
+			get { return this.GetPropertyValue<string>("sponsorName"); }
+		}
+	}
+
+	/// <summary>Votes</summary>
+	[PublishedContentModel("votes")]
+	public partial class Votes : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "votes";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Votes(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Votes, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+	}
+
+	/// <summary>Vote</summary>
+	[PublishedContentModel("vote")]
+	public partial class Vote : PublishedContentModel
+	{
+#pragma warning disable 0109 // new is redundant
+		public new const string ModelTypeAlias = "vote";
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+#pragma warning restore 0109
+
+		public Vote(IPublishedContent content)
+			: base(content)
+		{ }
+
+#pragma warning disable 0109 // new is redundant
+		public new static PublishedContentType GetModelContentType()
+		{
+			return PublishedContentType.Get(ModelItemType, ModelTypeAlias);
+		}
+#pragma warning restore 0109
+
+		public static PublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Vote, TValue>> selector)
+		{
+			return PublishedContentModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+		}
+
+		///<summary>
+		/// IMEI: mobile identification
+		///</summary>
+		[ImplementPropertyType("iMEI")]
+		public int IMei
+		{
+			get { return this.GetPropertyValue<int>("iMEI"); }
+		}
+
+		///<summary>
+		/// Match ID
+		///</summary>
+		[ImplementPropertyType("matchID")]
+		public int MatchID
+		{
+			get { return this.GetPropertyValue<int>("matchID"); }
+		}
+
+		///<summary>
+		/// Player ID
+		///</summary>
+		[ImplementPropertyType("playerID")]
+		public int PlayerID
+		{
+			get { return this.GetPropertyValue<int>("playerID"); }
 		}
 	}
 
