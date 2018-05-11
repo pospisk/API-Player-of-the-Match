@@ -304,6 +304,7 @@
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\VoteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -312,6 +313,7 @@
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Sponsor.cs" />
     <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\Vote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
