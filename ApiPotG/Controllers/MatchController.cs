@@ -10,16 +10,16 @@ namespace ApiPotG.Controllers
     public class MatchController : UmbracoApiController
     {
         /// <summary>
-        /// get matches from a team id
+        /// get matches from a parrent id
         /// </summary>
         /// <param name="teamId"></param>
         /// <returns>list of matces with ids of sponsors and opponents</returns>
         [HttpGet]
-        public List<Match> GetMatches(int teamId)
+        public List<Match> GetMatches(int parentId)
         {
             var cs = Services.ContentService;
             List<Match> res = new List<Match>();
-            var matches = cs.GetDescendants(teamId);
+            var matches = cs.GetDescendants(parentId);
 
             foreach (var match in matches)
             {

@@ -19,16 +19,21 @@ namespace ApiPotG.Controllers
             cs = Services.ContentService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// method for commiting votes
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>A http status code</returns>
+        [HttpPut]
         public IHttpActionResult CommitVote([FromBody] Vote data)
         {
             try
             {
                 //validate vote
-                //bool validates = ValidateVote(ticketID, projectID);
-                //if (validates)
-                //{
-                string message = "api entry ticket for match: " + data.matchId.ToString() + ", by: " + data.IMEI.ToString();
+                bool validates = ValidateVote(data.IMEI, data.matchId, data.playerId);
+                if (validates)
+                {
+                    string message = "api entry ticket for match: " + data.matchId.ToString() + ", by: " + data.IMEI.ToString();
                 //create vote object
                 var vote = cs.CreateContent(message, data.voteBatchId, "vote");
 
@@ -41,11 +46,11 @@ namespace ApiPotG.Controllers
                 cs.Save(vote);
                 return StatusCode(HttpStatusCode.Created);
 
-                //}
-                //if (!validates)
-                //{
-                //   return StatusCode(HttpStatusCode.Conflict);
-                //}
+                }
+                if (!validates)
+                {
+                    return StatusCode(HttpStatusCode.Conflict);
+                }
 
             }
             catch (Exception e)
@@ -56,6 +61,81 @@ namespace ApiPotG.Controllers
             return StatusCode(HttpStatusCode.BadRequest);
         }
 
+
+        /// <summary>
+        /// Private serverside validation of a vote
+        /// </summary>
+        /// <param name="IMEI"></param>
+        /// <param name="matchId"></param>
+        /// <param name="playerID"></param>
+        /// <param name="voteBatchId"></param>
+        /// <param name="rootId"></param>
+        /// <returns>A boolean value</returns>
+        private bool ValidateVote(int IMEI, int matchId,int playerId, int voteBatchId = 1116, int rootId = 1071)
+        {
+            // data for insert validation
+            MatchController mc = new MatchController();
+            List<Match> matches = mc.GetMatches(rootId);
+            PlayerController pc = new PlayerController();
+            List<Player> players = pc.GetPlayers(rootId);
+
+            // data for cross checking
+            List<Vote> votes = GetVotes(voteBatchId);
+            
+            try
+            {
+                bool isInsertable = (
+                    matches.Exists(x => x.id == matchId) 
+                    && players.Exists(x => x.id == playerId) )
+                    ? true : false;
+
+                if (isInsertable)
+                {
+                    List<Vote> matchingVotes = votes.FindAll(FindMatchingVote(matchId, playerId));
+                    
+                    bool usedIMEI = false;
+                    foreach (var vote in matchingVotes)
+                    {
+                        // set USED = TRUE if IMEI is in use on the vote
+                        usedIMEI = (vote.IMEI == IMEI)? true : false;
+
+                        // if in use, end foreach
+                        if (usedIMEI)
+                        {
+                            break;
+                        }
+                    }
+
+                    // final check for return
+                    if (!usedIMEI)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+            }
+            
+            // if something fails
+            return false;
+        }
+
+        private Predicate<Vote> FindMatchingVote(int matchId, int playerId )
+        {
+            return delegate (Vote v)
+            {
+                return v.matchId == matchId && v.playerId == playerId;
+            };
+            
+        }
+
+        /// <summary>
+        /// Get the votes from a batch
+        /// </summary>
+        /// <param name="voteBatchId"></param>
+        /// <returns>List of votes from a batch</returns>
         [HttpGet]
         public List<Vote> GetVotes(int voteBatchId)
         {

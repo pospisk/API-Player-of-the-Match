@@ -770,6 +770,9 @@ Umbraco.Core.Persistence.Mappers.ServerRegistrationMapper, Umbraco.Core, Version
 Umbraco.Core.Persistence.Mappers.UmbracoEntityMapper, Umbraco.Core, Version=1.0.6684.15725, Culture=neutral, PublicKeyToken=null
 Umbraco.Core.Persistence.Mappers.UserMapper, Umbraco.Core, Version=1.0.6684.15725, Culture=neutral, PublicKeyToken=null
 
+Umbraco.Core.Deploy.IServiceConnector
+
+
 umbraco.interfaces.ICacheRefresher
 
 Umbraco.Web.Cache.ApplicationCacheRefresher, umbraco, Version=1.0.6684.15731, Culture=neutral, PublicKeyToken=null

@@ -10,11 +10,11 @@ namespace ApiPotG.Controllers
     public class PlayerController : UmbracoApiController
     {
         [HttpGet]
-        public List<Player> GetPlayers(int teamId)
+        public List<Player> GetPlayers(int parentId)
         {
             var cs = Services.ContentService;
             List<Player> res = new List<Player>();
-            var players = cs.GetDescendants(teamId);
+            var players = cs.GetDescendants(parentId);
 
             foreach( var player in players)
             {
