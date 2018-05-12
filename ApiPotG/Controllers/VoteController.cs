@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using System.Net;
 using Umbraco.Core;
 using Umbraco.Core.Services;
 using Umbraco.Web.WebApi;
@@ -19,9 +20,8 @@ namespace ApiPotG.Controllers
         }
 
         [HttpPost]
-        public string CommitVote([FromBody] Vote data)
+        public IHttpActionResult CommitVote([FromBody] Vote data)
         {
-            
             try
             {
                 //validate vote
@@ -39,20 +39,21 @@ namespace ApiPotG.Controllers
 
                 cs.Publish(vote);
                 cs.Save(vote);
-                return "success";
+                return StatusCode(HttpStatusCode.Created);
+
                 //}
                 //if (!validates)
                 //{
-                //    return "The vote is invalid";
+                //   return StatusCode(HttpStatusCode.Conflict);
                 //}
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                Console.Write(e.Message);
             }
-            return "failed to vote";
+            return StatusCode(HttpStatusCode.BadRequest);
         }
 
         [HttpGet]
