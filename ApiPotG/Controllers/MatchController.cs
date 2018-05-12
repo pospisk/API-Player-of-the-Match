@@ -27,9 +27,9 @@ namespace ApiPotG.Controllers
                 {
                     var m = new Match
                     {
-                        id = match.Id,
-                        name = match.Name,
-                        matchDate = DateTime.Parse(match.Properties["matchStart"].Value.ToString()),
+                        Id = match.Id,
+                        Name = match.Name,
+                        MatchDate = DateTime.Parse(match.Properties["matchStart"].Value.ToString()),
                         
                     };
 
@@ -38,7 +38,7 @@ namespace ApiPotG.Controllers
                         string guid = match.Properties["matchOpponent"].Value.ToString();
                         var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
-                        m.opponent = media;
+                        m.Opponent = media;
                     }
                     catch (NullReferenceException e)
                     {
@@ -50,16 +50,12 @@ namespace ApiPotG.Controllers
                         string guid = match.Properties["matchSponsors"].Value.ToString();
                         var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
-                        m.sponsor = media;
+                        m.Sponsor = media;
                     }
                     catch(NullReferenceException e)
                     {
                         Console.WriteLine(e.Message);
                     }
-
-                    //var opponent = 0;
-                    //bool opponentParses = int.TryParse(match.Properties["matchOpponent"].Value.ToString(), out opponent);
-                    //m.opponent = opponentParses ? opponent : 0;
 
                     res.Add(m);
                 }

@@ -7,8 +7,8 @@ namespace ApiPotG.Models
 {
     public class Sponsor
     {
-        public int id { get; set; }
-        public string sponsorName { get; set; }
-        public string logo { get; set; }
+        public int Id { get; set; }
+        public string SponsorName { get; set; }
+        public string Logo { get; set; }
     }
 }

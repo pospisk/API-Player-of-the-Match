@@ -299,7 +299,7 @@
     <Compile Include="App_Start\UmbracoAuthTokenServerExtensions.cs" />
     <Compile Include="App_Start\UmbracoCustomOwinStartup.cs" />
     <Compile Include="App_Start\UmbracoStandardOwinStartup.cs" />
-    <Compile Include="Controllers\ClubsController.cs" />
+    <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\SponsorController.cs" />

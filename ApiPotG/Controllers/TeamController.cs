@@ -10,14 +10,14 @@ namespace ApiPotG.Controllers
         /// <summary>
         /// Get all the decendant teams of a parrent
         /// </summary>
-        /// <param name="parrentId"></param>
+        /// <param name="parentId"></param>
         /// <returns>Teams from the defined club</returns>
         [HttpGet]
-        public List<Team> GetTeams(int parrentId)
+        public List<Team> GetTeams(int parentId)
         {
             var cs = Services.ContentService;
             List<Team> res = new List<Team>();
-            var teams = cs.GetDescendants(parrentId);
+            var teams = cs.GetDescendants(parentId);
 
             foreach (var team in teams)
             {
@@ -25,8 +25,8 @@ namespace ApiPotG.Controllers
                 {
                     var t = new Team
                     {
-                        id = team.Id,
-                        name = team.Name
+                        Id = team.Id,
+                        Name = team.Name
 
                     };
                     res.Add(t);

@@ -7,11 +7,11 @@ namespace ApiPotG.Models
 {
     public class Vote
     {
-        public int id { get; set; }
+        public int Id { get; set; }
         public int IMEI { get; set; }
-        public int matchId { get; set; }
-        public int playerId { get; set; }
-        public DateTime dateTime { get; set; }
-        public int voteBatchId { get; set; }
+        public int MatchId { get; set; }
+        public int PlayerId { get; set; }
+        public DateTime DateTime { get; set; }
+        public int VoteBatchId { get; set; }
     }
 }

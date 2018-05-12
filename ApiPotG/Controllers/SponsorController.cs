@@ -17,8 +17,8 @@ namespace ApiPotG.Controllers
 
             Sponsor res = new Sponsor
             {
-                id = sponsor.Id,
-                sponsorName = sponsor.Properties["sponsorName"].Value.ToString()
+                Id = sponsor.Id,
+                SponsorName = sponsor.Properties["sponsorName"].Value.ToString()
             };
 
             try
@@ -28,7 +28,7 @@ namespace ApiPotG.Controllers
                 var media = Umbraco.GetIdForUdi(udi);
                 var content = Umbraco.Media(media);
                 var imgPath = content.Url;
-                res.logo = imgPath;
+                res.Logo = imgPath;
             }
             catch (NullReferenceException e)
             {

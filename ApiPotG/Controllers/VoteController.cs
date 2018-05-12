@@ -30,17 +30,17 @@ namespace ApiPotG.Controllers
             try
             {
                 //validate vote
-                bool validates = ValidateVote(data.IMEI, data.matchId, data.playerId);
+                bool validates = ValidateVote(data.IMEI, data.MatchId, data.PlayerId);
                 if (validates)
                 {
-                    string message = "api entry ticket for match: " + data.matchId.ToString() + ", by: " + data.IMEI.ToString();
+                    string message = "api entry ticket for match: " + data.MatchId.ToString() + ", by: " + data.IMEI.ToString();
                 //create vote object
-                var vote = cs.CreateContent(message, data.voteBatchId, "vote");
+                var vote = cs.CreateContent(message, data.VoteBatchId, "vote");
 
                 //set vote properties
                 vote.Properties["IMEI"].Value = data.IMEI;
-                vote.Properties["matchId"].Value = data.matchId;
-                vote.Properties["playerId"].Value = data.playerId;
+                vote.Properties["matchId"].Value = data.MatchId;
+                vote.Properties["playerId"].Value = data.PlayerId;
 
                 cs.Publish(vote);
                 cs.Save(vote);
@@ -85,8 +85,8 @@ namespace ApiPotG.Controllers
             try
             {
                 bool isInsertable = (
-                    matches.Exists(x => x.id == matchId) 
-                    && players.Exists(x => x.id == playerId) )
+                    matches.Exists(x => x.Id == matchId) 
+                    && players.Exists(x => x.Id == playerId) )
                     ? true : false;
 
                 if (isInsertable)
@@ -126,7 +126,7 @@ namespace ApiPotG.Controllers
         {
             return delegate (Vote v)
             {
-                return v.matchId == matchId && v.playerId == playerId;
+                return v.MatchId == matchId && v.PlayerId == playerId;
             };
             
         }
@@ -146,11 +146,11 @@ namespace ApiPotG.Controllers
             {
                 var v = new Vote
                 {
-                    id = vote.Id,
+                    Id = vote.Id,
                     IMEI = int.Parse(vote.Properties["IMEI"].Value.ToString()),
-                    matchId = int.Parse(vote.Properties["matchId"].Value.ToString()),
-                    playerId = int.Parse(vote.Properties["playerId"].Value.ToString()),
-                    dateTime = vote.CreateDate
+                    MatchId = int.Parse(vote.Properties["matchId"].Value.ToString()),
+                    PlayerId = int.Parse(vote.Properties["playerId"].Value.ToString()),
+                    DateTime = vote.CreateDate
                 };
                 res.Add(v);
             }

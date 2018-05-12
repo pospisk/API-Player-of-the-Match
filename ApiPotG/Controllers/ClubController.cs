@@ -5,7 +5,7 @@ using Umbraco.Web.WebApi;
 
 namespace ApiPotG.Controllers
 {
-    public class ClubsController : UmbracoApiController
+    public class ClubController : UmbracoApiController
     {
         // GET: api/Clubs
         public IEnumerable<string> Get()

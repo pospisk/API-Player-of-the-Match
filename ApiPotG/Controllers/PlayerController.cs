@@ -22,10 +22,10 @@ namespace ApiPotG.Controllers
                 {
                     var p = new Player
                     {
-                        id = player.Id,
-                        firstName = player.Properties["firstName"].Value.ToString(),
-                        lastName = player.Properties["lastName"].Value.ToString(),
-                        jerseyNumber = int.Parse(player.Properties["jerseyNumber"].Value.ToString())
+                        Id = player.Id,
+                        FirstName = player.Properties["firstName"].Value.ToString(),
+                        LastName = player.Properties["lastName"].Value.ToString(),
+                        JerseyNumber = int.Parse(player.Properties["jerseyNumber"].Value.ToString())
                     };
 
                     try
@@ -35,7 +35,7 @@ namespace ApiPotG.Controllers
                         var media = Umbraco.GetIdForUdi(udi);
                         var content = Umbraco.Media(media);
                         var imgPath = content.Url;
-                        p.playerImage = imgPath;
+                        p.PlayerImage = imgPath;
                     }
                     catch (NullReferenceException e)
                     {
