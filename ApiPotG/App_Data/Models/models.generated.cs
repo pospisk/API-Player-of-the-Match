@@ -19,8 +19,8 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "fde0cad16d59532d")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "7530ab71fb345f12")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
 {
@@ -82,6 +82,15 @@ namespace Umbraco.Web.PublishedContentModels
 		public string ClubDescription
 		{
 			get { return this.GetPropertyValue<string>("clubDescription"); }
+		}
+
+		///<summary>
+		/// Club Logo
+		///</summary>
+		[ImplementPropertyType("clubLogo")]
+		public IPublishedContent ClubLogo
+		{
+			get { return this.GetPropertyValue<IPublishedContent>("clubLogo"); }
 		}
 
 		///<summary>

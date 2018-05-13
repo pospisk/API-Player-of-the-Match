@@ -1,39 +1,14 @@
 ﻿using ApiPotG.Models;
+using System;
 using System.Collections.Generic;
-using System.Web.Http;
+using System.Web.Mvc;
+using Umbraco.Core;
 using Umbraco.Web.WebApi;
-
 namespace ApiPotG.Controllers
 {
     public class ClubController : UmbracoApiController
     {
-        // GET: api/Clubs
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/Clubs/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST: api/Clubs
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Clubs/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Clubs/5
-        public void Delete(int id)
-        {
-        }
-
+       
         // eg. /umbraco/Api/Clubs/GetClubs?id=1071
         [System.Web.Http.HttpGet]
         public List<Club> GetClubs(int id)
@@ -55,6 +30,21 @@ namespace ApiPotG.Controllers
                     Description = club.Properties["clubDescription"].Value.ToString(),
                     Teams = teams
                 };
+
+                try
+                {
+                    string guid = club.Properties["clubLogo"].Value.ToString();
+                    var udi = Udi.Parse(guid);
+                    var media = Umbraco.GetIdForUdi(udi);
+                    var content = Umbraco.Media(media);
+                    var imgPath = content.Url;
+                    c.ClubLogo = imgPath;
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
                 res.Add(c);
             }
 
