@@ -41,6 +41,9 @@ namespace ApiPotG.Controllers
                         TeamId =  cs.GetParent(cs.GetParent(match.Id).Id).Id
                     };
 
+                    // TeamId has to be defined
+                    m.ClubId = cs.GetParent(cs.GetParent(m.TeamId).Id).Id;
+
                     try
                     {
                         string guid = match.Properties["matchOpponent"].Value.ToString();
@@ -84,6 +87,9 @@ namespace ApiPotG.Controllers
                 MatchDate = DateTime.Parse(match.Properties["matchStart"].Value.ToString()),
                 TeamId = cs.GetParent(cs.GetParent(match.Id).Id).Id
             };
+
+            // TeamId has to be defined
+            res.ClubId = cs.GetParent(cs.GetParent(res.TeamId).Id).Id;
 
             if (match.ContentType.Alias == "match")
             {
