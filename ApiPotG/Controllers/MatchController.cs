@@ -30,7 +30,7 @@ namespace ApiPotG.Controllers
                         Id = match.Id,
                         Name = match.Name,
                         MatchDate = DateTime.Parse(match.Properties["matchStart"].Value.ToString()),
-                        
+                        TeamId =  cs.GetParent(cs.GetParent(match.Id).Id).Id
                     };
 
                     try
@@ -38,7 +38,7 @@ namespace ApiPotG.Controllers
                         string guid = match.Properties["matchOpponent"].Value.ToString();
                         var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
-                        m.Opponent = media;
+                        m.OpponentId = media;
                     }
                     catch (NullReferenceException e)
                     {
