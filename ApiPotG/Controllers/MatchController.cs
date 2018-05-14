@@ -120,6 +120,16 @@ namespace ApiPotG.Controllers
 
                 try
                 {
+                    var team = cs.GetById(res.TeamId);
+                    res.TeamName = team.Name;
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                try
+                {
                     var club = cs.GetById(res.ClubId);
                     string guid = club.Properties["clubLogo"].Value.ToString();
                     var udi = Udi.Parse(guid);
