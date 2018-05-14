@@ -7,4 +7,3 @@
 ### Up To Date Version 
 Currently online @ http://api.potg-dev.org/
 
-test url for api http://api.potg-dev.org/umbraco/Api/Clubs/GetClubs?id=1071
