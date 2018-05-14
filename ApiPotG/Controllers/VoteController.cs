@@ -33,7 +33,7 @@ namespace ApiPotG.Controllers
                 bool validates = ValidateVote(data.IMEI, data.MatchId, data.PlayerId);
                 if (validates)
                 {
-                    string message = "api entry ticket for match: " + data.MatchId.ToString() + ", by: " + data.IMEI.ToString();
+                    string message = "m:" + data.MatchId.ToString() + ", p:" + data.PlayerId.ToString() + ", IMEI: " + data.IMEI.ToString();
                 //create vote object
                 var vote = cs.CreateContent(message, data.VoteBatchId, "vote");
 
@@ -91,26 +91,11 @@ namespace ApiPotG.Controllers
 
                 if (isInsertable)
                 {
-                    List<Vote> matchingVotes = votes.FindAll(FindMatchingVote(matchId, playerId));
-                    
-                    bool usedIMEI = false;
-                    foreach (var vote in matchingVotes)
-                    {
-                        // set USED = TRUE if IMEI is in use on the vote
-                        usedIMEI = (vote.IMEI == IMEI)? true : false;
-
-                        // if in use, end foreach
-                        if (usedIMEI)
-                        {
-                            break;
-                        }
-                    }
+                    List<Vote> matchingVotes = votes.FindAll(FindMatchingVote(matchId: matchId, IMEI: IMEI));
 
                     // final check for return
-                    if (!usedIMEI)
-                    {
-                        return true;
-                    }
+                    return (matchingVotes.Count <= 0) ? true : false;
+                    
                 }
             }
             catch (Exception e)
@@ -122,11 +107,17 @@ namespace ApiPotG.Controllers
             return false;
         }
 
-        private Predicate<Vote> FindMatchingVote(int matchId, int playerId )
+        /// <summary>
+        /// Gets matching vote by looking up matchId and IMEI
+        /// </summary>
+        /// <param name="matchId"></param>
+        /// <param name="IMEI"></param>
+        /// <returns>Matching Vote</returns>
+        private Predicate<Vote> FindMatchingVote(int matchId, string IMEI )
         {
             return delegate (Vote v)
             {
-                return v.MatchId == matchId && v.PlayerId == playerId;
+                return v.MatchId == matchId && v.IMEI == IMEI;
             };
             
         }
