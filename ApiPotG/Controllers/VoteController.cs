@@ -71,7 +71,7 @@ namespace ApiPotG.Controllers
         /// <param name="voteBatchId"></param>
         /// <param name="rootId"></param>
         /// <returns>A boolean value</returns>
-        private bool ValidateVote(int IMEI, int matchId,int playerId, int voteBatchId = 1116, int rootId = 1071)
+        private bool ValidateVote(string IMEI, int matchId,int playerId, int voteBatchId = 1116, int rootId = 1071)
         {
             // data for insert validation
             MatchController mc = new MatchController();
@@ -147,7 +147,7 @@ namespace ApiPotG.Controllers
                 var v = new Vote
                 {
                     Id = vote.Id,
-                    IMEI = int.Parse(vote.Properties["IMEI"].Value.ToString()),
+                    IMEI = vote.Properties["IMEI"].ToString(),
                     MatchId = int.Parse(vote.Properties["matchId"].Value.ToString()),
                     PlayerId = int.Parse(vote.Properties["playerId"].Value.ToString()),
                     DateTime = vote.CreateDate
