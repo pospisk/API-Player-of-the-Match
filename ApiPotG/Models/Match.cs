@@ -12,7 +12,10 @@ namespace ApiPotG.Models
         public DateTime MatchDate { get; set; }
         public int TeamId { get; set; }
         public int ClubId { get; set; }
+        public string ClubImagePath { get; set; }
         public int OpponentId { get; set; }
+        public string OpponentName { get; set; }
+        public string OpponentClubImagePath { get; set; }
         public int Sponsor { get; set; }
     }
 }

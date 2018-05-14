@@ -11,6 +11,7 @@ namespace ApiPotG.Controllers
     public class MatchController : UmbracoApiController
     {
         private readonly IContentService cs;
+        private readonly string mediaBaseUri = "http://api.potg-dev.org";
 
         public MatchController()
         {
@@ -104,19 +105,7 @@ namespace ApiPotG.Controllers
                 {
                     Console.WriteLine(e.Message);
                 }
-
-                try
-                {
-                    string guid = match.Properties["matchOpponent"].Value.ToString();
-                    var uid = Udi.Parse(guid);
-                    var media = Umbraco.GetIdForUdi(uid);
-                    res.OpponentId = media;
-                }
-                catch (NullReferenceException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-
+                
                 try
                 {
                     string guid = match.Properties["matchSponsors"].Value.ToString();
@@ -128,6 +117,41 @@ namespace ApiPotG.Controllers
                 {
                     Console.WriteLine(e.Message);
                 }
+
+                try
+                {
+                    var club = cs.GetById(res.ClubId);
+                    string guid = club.Properties["clubLogo"].Value.ToString();
+                    var udi = Udi.Parse(guid);
+                    var media = Umbraco.GetIdForUdi(udi);
+                    var content = Umbraco.Media(media);
+                    var imgPath = content.Url;
+                    res.ClubImagePath = mediaBaseUri + imgPath;
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                try
+                {
+                    var opponent = cs.GetById(res.OpponentId);
+                    res.OpponentName = opponent.Name;
+
+                    var opponentClub = cs.GetParent(cs.GetParent(opponent.Id).Id);
+
+                    string guid = opponentClub.Properties["clubLogo"].Value.ToString();
+                    var udi = Udi.Parse(guid);
+                    var media = Umbraco.GetIdForUdi(udi);
+                    var content = Umbraco.Media(media);
+                    var imgPath = content.Url;
+                    res.OpponentClubImagePath = mediaBaseUri + imgPath;
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
 
                 return res;
 
