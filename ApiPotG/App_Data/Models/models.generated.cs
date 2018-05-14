@@ -19,7 +19,7 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "7530ab71fb345f12")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "925c157b0ef2cb90")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.2")]
 
 namespace Umbraco.Web.PublishedContentModels
@@ -474,9 +474,9 @@ namespace Umbraco.Web.PublishedContentModels
 		/// IMEI: mobile identification
 		///</summary>
 		[ImplementPropertyType("iMEI")]
-		public int IMei
+		public string IMei
 		{
-			get { return this.GetPropertyValue<int>("iMEI"); }
+			get { return this.GetPropertyValue<string>("iMEI"); }
 		}
 
 		///<summary>

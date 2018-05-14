@@ -147,7 +147,7 @@ namespace ApiPotG.Controllers
                 var v = new Vote
                 {
                     Id = vote.Id,
-                    IMEI = vote.Properties["IMEI"].ToString(),
+                    IMEI = vote.Properties["IMEI"].Value.ToString(),
                     MatchId = int.Parse(vote.Properties["matchId"].Value.ToString()),
                     PlayerId = int.Parse(vote.Properties["playerId"].Value.ToString()),
                     DateTime = vote.CreateDate
