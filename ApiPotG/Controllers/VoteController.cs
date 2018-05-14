@@ -24,7 +24,7 @@ namespace ApiPotG.Controllers
         /// </summary>
         /// <param name="data"></param>
         /// <returns>A http status code</returns>
-        [HttpPut]
+        [HttpPost]
         public IHttpActionResult CommitVote([FromBody] Vote data)
         {
             try
