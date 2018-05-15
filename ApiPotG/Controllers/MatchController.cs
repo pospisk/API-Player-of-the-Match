@@ -62,7 +62,7 @@ namespace ApiPotG.Controllers
                         string guid = match.Properties["matchSponsors"].Value.ToString();
                         var uid = Udi.Parse(guid);
                         var media = Umbraco.GetIdForUdi(uid);
-                        m.Sponsor = media;
+                        m.SponsorId = media;
                     }
                     catch(NullReferenceException e)
                     {
@@ -111,9 +111,30 @@ namespace ApiPotG.Controllers
                     string guid = match.Properties["matchSponsors"].Value.ToString();
                     var uid = Udi.Parse(guid);
                     var media = Umbraco.GetIdForUdi(uid);
-                    res.Sponsor = media;
+                    res.SponsorId = media;
                 }
                 catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+                try
+                {
+                    if (res.SponsorId != 0)
+                    {
+                        var sponsor = cs.GetById(res.SponsorId);
+                        res.SponsorName = sponsor.Name;
+
+                        string guid = sponsor.Properties["logo"].Value.ToString();
+                        var udi = Udi.Parse(guid);
+                        var media = Umbraco.GetIdForUdi(udi);
+                        var content = Umbraco.Media(media);
+                        var imgPath = content.Url;
+                        res.SponsorImagePath = mediaBaseUri + imgPath;
+                    }
+                    
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
